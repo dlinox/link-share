@@ -35,10 +35,16 @@ export function useAuth() {
     }
   };
 
+  const useSignOut = async () => {
+    await authService.signOut();
+    navigate('/login');
+  };
+
   return {
     isAuthenticated,
     setIsAuthenticated,
     useSignIn,
     useSignUp,
+    useSignOut,
   };
 }

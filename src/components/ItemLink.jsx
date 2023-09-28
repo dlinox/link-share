@@ -3,7 +3,7 @@ import React from "react";
 
 const ItemLink = ({ title, username, votes, url }) => {
   return (
-    <div className="bg-white border rounded-lg shadow-sm p-4">
+    <div className="bg-white border rounded-lg shadow-sm p-4 mb-4">
       {/* Encabezado de la tarjeta */}
       <div className="flex items-center">
         <div className="w-10 h-10 bg-gray-400 rounded-full"></div>

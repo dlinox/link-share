@@ -1,5 +1,5 @@
 export default class LinkService {
-  static BASE_URL = "http://localhost:8008/links";
+  static BASE_URL = "http://localhost:8000/links";
 
   async create({ title, url, description }) {
     try {

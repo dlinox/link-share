@@ -1,15 +1,13 @@
 export default class AuthService {
-  static BASE_URL = "http://localhost:8008/users";
+  static BASE_URL = "http://localhost:8000/users";
 
   async signIn({ email, password }) {
-    console.log("login");
+
     try {
       let data = JSON.stringify({
         email: email,
         password: password,
       });
-
-      console.log(data);
 
       let res = await fetch(`${AuthService.BASE_URL}/login`, {
         method: "POST",
@@ -83,5 +81,9 @@ export default class AuthService {
         data: null,
       };
     }
+  }
+
+  async signOut(){
+    localStorage.removeItem('token');
   }
 }

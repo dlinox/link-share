@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DashboardLayout from "../../layouts/dashboardLayout";
 
 import Modal from "../../components/Modal";
@@ -12,17 +12,21 @@ import LinkService from "../../services/LinkService";
 
 function User() {
   const modalRef = useRef();
-
   const linkService = new LinkService();
 
+  const [links, setLinks] = useState([]);
+
+  const listLink = async () => {
+    let res = await linkService.list();
+
+    console.log(res.data.data.links);
+
+    setLinks(res.data.data.links);
+  };
+
   useEffect(() => {
-    const listLink = async () => {
-      let res = await linkService.list();
-      console.log('-->', res);
-    };
-    
     listLink();
-  }, []); 
+  }, []);
 
   // const listLink = async () => {
   //   let res = await linkService.list();
@@ -71,12 +75,10 @@ function User() {
           </div>
 
           <div className="mt-4">
-            <ItemLink
-              title="af"
-              username={"sf"}
-              votes={52}
-              url={"sf"}
-            ></ItemLink>
+
+            {links.map((item, i) => (
+              <ItemLink title={item.title} username={item.username} votes={item.votes} url={item.url} />
+            ))}
           </div>
         </div>
       </div>
