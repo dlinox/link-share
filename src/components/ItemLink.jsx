@@ -1,7 +1,15 @@
 // Item.js
 import React from "react";
 
-const ItemLink = ({ title, username, votes, url }) => {
+import LinkService from "../services/LinkService";
+
+const ItemLink = ({ title, username, votes, url, id, votedByMe }) => {
+  const linkService = new LinkService();
+
+  const vote = () => {
+    linkService.votes({ linkId: id, value: votes });
+  };
+
   return (
     <div className="bg-white border rounded-lg shadow-sm p-4 mb-4">
       {/* Encabezado de la tarjeta */}
@@ -19,7 +27,10 @@ const ItemLink = ({ title, username, votes, url }) => {
       {/* Pie de la tarjeta */}
       <div className="flex items-center justify-end mt-4">
         <div className="flex  ">
-          <button className="flex items-center  bg-indigo-50 p-1.5 rounded-lg">
+          <button
+            onClick={vote}
+            className="flex items-center  bg-indigo-50 p-1.5 rounded-lg"
+          >
             <span className="text-gray-600 mx-2 font-mono">{votes}</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +38,8 @@ const ItemLink = ({ title, username, votes, url }) => {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-8 h-8 text-700 bg-slate-200 rounded-lg p-1"
+              className={`w-8 h-8 text-700 rounded-lg p-1 ${votedByMe ? 'bg-indigo-700 text-white' : 'bg-slate-200'}`}
+
             >
               <path
                 strokeLinecap="round"

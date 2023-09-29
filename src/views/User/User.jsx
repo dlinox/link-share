@@ -4,7 +4,6 @@ import DashboardLayout from "../../layouts/dashboardLayout";
 import Modal from "../../components/Modal";
 
 import FormNewLink from "./components/FormNewLink";
-import Button from "../../components/Button";
 import TextInput from "../../components/TextInput";
 import ItemLink from "../../components/ItemLink";
 
@@ -75,9 +74,16 @@ function User() {
           </div>
 
           <div className="mt-4">
-
-            {links.map((item, i) => (
-              <ItemLink title={item.title} username={item.username} votes={item.votes} url={item.url} />
+            {links.map((item) => (
+              <ItemLink
+                key={item.id}
+                title={item.title}
+                username={item.username}
+                votes={item.votes}
+                url={item.url}
+                id={item.id}
+                votedByMe={item.votedByMe}
+              />
             ))}
           </div>
         </div>

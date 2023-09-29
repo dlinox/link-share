@@ -77,4 +77,40 @@ export default class LinkService {
       };
     }
   }
+
+  async votes({linkId, value}) {
+    try {
+      let token = localStorage.getItem("token");
+
+      let res = await fetch(`${LinkService.BASE_URL}/${linkId}/votes`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify({ value: value + 1 }),
+      });
+
+      let jsonResponse = await res.json();
+
+      if (jsonResponse.status === "error") {
+        return {
+          ...jsonResponse,
+          data: null,
+        };
+      }
+
+      return {
+        status: "success",
+        message: "Success",
+        data: jsonResponse,
+      };
+    } catch (error) {
+      return {
+        status: "error",
+        message: "Unknown error",
+        data: null,
+      };
+    }
+  }
 }
