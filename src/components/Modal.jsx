@@ -2,7 +2,7 @@
 import React, { forwardRef, useImperativeHandle, useState } from "react";
 import Button from "./Button";
 
-const Modal = forwardRef(({ title, children }, ref) => {
+const Modal = forwardRef(({ title, textButton, children }, ref) => {
   const [showModal, setShowModal] = useState(false);
 
   const openModal = () => {
@@ -20,7 +20,9 @@ const Modal = forwardRef(({ title, children }, ref) => {
 
   return (
     <>
-      <Button onClick={openModal}> Agregar</Button>
+      <Button onClick={openModal}> 
+      {textButton}
+      </Button>
 
       {showModal && (
         <div

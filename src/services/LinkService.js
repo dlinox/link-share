@@ -78,7 +78,7 @@ export default class LinkService {
     }
   }
 
-  async votes({linkId, value}) {
+  async votes({ linkId, value }) {
     try {
       let token = localStorage.getItem("token");
 
@@ -88,10 +88,12 @@ export default class LinkService {
           "Content-Type": "application/json",
           Authorization: token,
         },
-        body: JSON.stringify({ value: value + 1 }),
+        body: JSON.stringify({ value: value }),
       });
 
       let jsonResponse = await res.json();
+
+      console.log(jsonResponse);
 
       if (jsonResponse.status === "error") {
         return {
@@ -100,11 +102,40 @@ export default class LinkService {
         };
       }
 
+      return jsonResponse;
+    } catch (error) {
       return {
-        status: "success",
-        message: "Success",
-        data: jsonResponse,
+        status: "error",
+        message: "Unknown error",
+        data: null,
       };
+    }
+  }
+
+  async delete(linkId) {
+    try {
+      let token = localStorage.getItem("token");
+
+      let res = await fetch(`${LinkService.BASE_URL}/${linkId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
+
+      let jsonResponse = await res.json();
+
+      console.log(jsonResponse);
+
+      if (jsonResponse.status === "error") {
+        return {
+          ...jsonResponse,
+          data: null,
+        };
+      }
+
+      return jsonResponse;
     } catch (error) {
       return {
         status: "error",
